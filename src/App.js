@@ -1,52 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Food({ name, rating }) {
-  return(
-  <div>
-    <h3>I love {name}</h3>
-    <h2>{rating} / 5</h2>
-  </div>
-  );
-}
-
-Food.propTypes = {
-  name: PropTypes.string.isRequired,
-  rating: PropTypes.number
-}
-
-const foodILike = [
-  {
-    name: "Kimchi",
-    rating: 5.0
-  },
-  {
-    name: "Samgyeopsal",
-    rating: 4.9
-  },
-  {
-    name: "Bibimbap",
-    rating: 4.2
-  },
-  {
-    name: "Doncasu",
-    rating: 5.0
-  }
-];
-
-function renderFood(dish) {
-  return(
-    <Food name = {dish.name} rating = {dish.rating} />
-  );
-}
-
-function App() {
-  return (
-    <div>
-      {foodILike.map(renderFood)}
-    </div>
-  );
-      
+class App extends React.Component{
+    state = {
+        isLoading: true,
+        movies: []
+    };
+    // 처음 render를 하게 되면 호출되는 life cycle method = componentDidMount
+    componentDidMount(){
+        setTimeout(() => {
+            this.setState({ isLoading: false});
+        }, 6000); //6초 뒤에 We are ready로 바뀜.
+    }
+    render() {
+        const { isLoading } = this.state;
+        return <div>{isLoading ? "Loading..." : "We are ready"}</div>; // 삼항연산자로 isLoading이 true면 Loading을 아니면 we are ready 출력
+    }
 }
 
 export default App;
